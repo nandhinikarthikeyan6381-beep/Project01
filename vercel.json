@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "Backend/app.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "Frontend/static/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/Frontend/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "Backend/app.py"
+    }
+  ]
+}
