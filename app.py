@@ -4,9 +4,19 @@ import mysql.connector
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# Absolute Path Resolution for Vercel
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'Frontend', 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'Frontend', 'static')
 
+# If templates are directly under root/templates, fallback handles it smoothly
+if not os.path.exists(TEMPLATE_DIR):
+    TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+if not os.path.exists(STATIC_DIR):
+    STATIC_DIR = os.path.join(BASE_DIR, 'static')
+
+app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 app.secret_key = 'ngo_donation_secret_key_2026'
 
