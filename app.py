@@ -3,8 +3,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-TEMPLATE_DIR = os.path.join(BASE_DIR, '..', 'Frontend', 'templates')
-STATIC_DIR = os.path.join(BASE_DIR, '..', 'Frontend', 'static')
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'Frontend', 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'Frontend', 'static')
 
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 app.secret_key = 'ngo_donation_secret_key_2026'
