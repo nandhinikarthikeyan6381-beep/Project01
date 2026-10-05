@@ -1,17 +1,17 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 
-# Find the exact directory of this app.py file
+# BASE DIRECTORY
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Map to Frontend/templates and Frontend/static directory
+# Folder Paths matching VS Code layout
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'Frontend', 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'Frontend', 'static')
 
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 app.secret_key = 'ngo_donation_secret_key_2026'
 
-# Dummy data so application runs seamlessly without DB dependency
+# Fallback Data
 USERS = {
     "donor@example.com": {"password": "123", "name": "John Donor", "role": "donor"},
     "ngo@example.com": {"password": "123", "name": "Helping NGO", "role": "ngo"}
@@ -47,7 +47,6 @@ def login():
 def register():
     return render_template('register.html')
 
-# Essential for Vercel
 app = app
 
 if __name__ == '__main__':
