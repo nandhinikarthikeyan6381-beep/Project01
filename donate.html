@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <!-- Donation Header Photo -->
+        <img src="{{ url_for('static', filename='images/donation.jpg') }}" class="img-fluid rounded-4 shadow-sm mb-3" alt="Make a Donation" style="max-height: 250px; object-fit: cover; width: 100%;">
+        <h2 class="fw-bold text-primary">Make a Donation</h2>
+        <p class="text-muted">Your generosity brings hope and help to those in need.</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-lg rounded-4 p-4">
+                <form method="POST" action="{{ url_for('donate') }}">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Select Category</label>
+                        <select name="category" class="form-select" required>
+                            <option value="Food & Ration">Food & Ration</option>
+                            <option value="Medical Supplies">Medical Supplies</option>
+                            <option value="Education Books">Education Books</option>
+                            <option value="Money Donation">Money Donation</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Amount (Only for Money Donation)</label>
+                        <input type="number" name="amount" class="form-control" placeholder="e.g. 500">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold rounded-3 py-2">Proceed to Donate</button>
+                </form>
+
+                {% if qr_url %}
+                <div class="text-center mt-4 pt-3 border-top">
+                    <h6 class="fw-bold text-success mb-3">Scan UPI QR Code to Complete Payment</h6>
+                    <img src="{{ qr_url }}" class="img-fluid rounded-3 border p-2 bg-light" alt="UPI QR Code">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="py-5 bg-light border-bottom">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill mb-3 fw-semibold">
+                    <i class="fa-solid fa-seedling me-1"></i> Together We Can Make A Difference
+                </span>
+                <h1 class="display-4 fw-bold text-dark lh-sm mb-3">
+                    Donate Today. <span class="text-primary">Track Your Impact.</span>
+                </h1>
+                <p class="lead text-secondary mb-4 fs-6">
+                    A smart NGO Donation platform connecting donors, volunteers and NGOs with complete donation transparency.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{{ url_for('donate') }}" class="btn btn-primary btn-lg rounded-3 fw-bold px-4 fs-6">
+                        <i class="fa-solid fa-heart me-2"></i>Donate Now
+                    </a>
+                    <a href="{{ url_for('register') }}" class="btn btn-outline-primary btn-lg rounded-3 fw-bold px-4 fs-6">
+                        Become Volunteer
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="card border-0 shadow-lg rounded-4 p-4 bg-white">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-bold mb-0 text-primary"><i class="fa-solid fa-route me-2"></i>Donation Journey</h6>
+                    </div>
+                    <div class="p-4 bg-light rounded-3 d-flex justify-content-between align-items-center text-secondary small">
+                        <span><i class="fa-solid fa-user me-1 text-primary"></i> Donor</span>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                        <span><i class="fa-solid fa-handshake me-1 text-primary"></i> Volunteer</span>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                        <span><i class="fa-solid fa-truck me-1 text-primary"></i> Transport</span>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                        <span><i class="fa-solid fa-building-ngo me-1 text-primary"></i> NGO</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Bar -->
+<section class="py-4 bg-primary text-white">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-6 col-md-3">
+                <h2 class="fw-bold mb-0">120+</h2>
+                <small class="opacity-75">Registered NGOs</small>
+            </div>
+            <div class="col-6 col-md-3">
+                <h2 class="fw-bold mb-0">850+</h2>
+                <small class="opacity-75">Volunteers</small>
+            </div>
+            <div class="col-6 col-md-3">
+                <h2 class="fw-bold mb-0">2500+</h2>
+                <small class="opacity-75">Donations</small>
+            </div>
+            <div class="col-6 col-md-3">
+                <h2 class="fw-bold mb-0">1800+</h2>
+                <small class="opacity-75">Completed</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-5 bg-white border-bottom">
+    <div class="container py-4 text-center">
+        <p class="text-uppercase text-primary fw-bold mb-1 small">About Us</p>
+        <h2 class="fw-bold mb-4">Making Donations More Transparent</h2>
+        <p class="text-secondary mx-auto col-md-8">
+            Our platform connects donors directly with verified NGOs. From real-time tracking of physical item deliveries to photo proof upon receipt, we ensure your contribution reaches the right hands.
+        </p>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5 bg-light">
+    <div class="container py-4 text-center">
+        <p class="text-uppercase text-primary fw-bold mb-1 small">Features</p>
+        <h2 class="fw-bold mb-5">Everything You Need</h2>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+                    <div class="fs-1 text-primary mb-3"><i class="fa-solid fa-building-ngo"></i></div>
+                    <h5 class="fw-bold">NGO Management</h5>
+                    <p class="text-secondary small mb-0">NGOs can register, create requests and manage donation transparency.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+                    <div class="fs-1 text-primary mb-3"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                    <h5 class="fw-bold">Online Donations</h5>
+                    <p class="text-secondary small mb-0">Donate money or physical resources easily with instant QR generation.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+                    <div class="fs-1 text-primary mb-3"><i class="fa-solid fa-truck-fast"></i></div>
+                    <h5 class="fw-bold">Transport Tracking</h5>
+                    <p class="text-secondary small mb-0">Track your donation status live from pickup to delivery verification.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- NGOs Section -->
+<section id="ngos" class="py-5 bg-white border-top">
+    <div class="container py-4 text-center">
+        <p class="text-uppercase text-primary fw-bold mb-1 small">NGOs</p>
+        <h2 class="fw-bold mb-5">Featured Verified NGOs</h2>
+
+        <div class="row g-4">
+            {% for ngo in ngos %}
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-light text-start">
+                    <span class="badge bg-success-subtle text-success border border-success-subtle w-auto me-auto mb-2">{{ ngo.cat }}</span>
+                    <h5 class="fw-bold text-dark">{{ ngo.name }}</h5>
+                    <p class="text-muted small">{{ ngo.desc }}</p>
+                    <small class="text-secondary d-block mb-3"><i class="fa-solid fa-location-dot text-danger me-1"></i> {{ ngo.location }}</small>
+                    <a href="{{ url_for('donate') }}" class="btn btn-outline-primary btn-sm rounded-2 fw-bold w-100">Donate to NGO</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

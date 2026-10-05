@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}NGO Dashboard - Control Center{% endblock %}
+
+{% block content %}
+<div class="dashboard-header-banner">
+    <div>
+        <h2>NGO Control Center <i class="fa-solid fa-building-ngo text-purple"></i></h2>
+        <p>Manage incoming items, assign pickups, and upload live distribution photo evidence.</p>
+    </div>
+</div>
+
+<!-- Key Performance Indicators -->
+<div class="stats-overview-grid">
+    <div class="stat-card">
+        <div class="icon-circle bg-blue"><i class="fa-solid fa-users"></i></div>
+        <div class="stat-meta">
+            <h3>{{ volunteers_count }}</h3>
+            <p>Onboarded Volunteers</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="icon-circle bg-green"><i class="fa-solid fa-boxes-packing"></i></div>
+        <div class="stat-meta">
+            <h3>{{ total_received }}</h3>
+            <p>Total Items Processed</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="icon-circle bg-orange"><i class="fa-solid fa-truck-ramp-box"></i></div>
+        <div class="stat-meta">
+            <h3>{{ pending_pickups }}</h3>
+            <p>Pending Pickups</p>
+        </div>
+    </div>
+</div>
+
+<!-- Proof Upload Section -->
+<div class="content-card form-card-wrap">
+    <div class="card-title-bar">
+        <h3><i class="fa-solid fa-cloud-arrow-up text-blue"></i> Upload Impact Photo Evidence</h3>
+    </div>
+    <form method="POST" enctype="multipart/form-data" class="grid-form">
+        <div class="form-group">
+            <label><i class="fa-solid fa-hashtag"></i> Select Received Donation</label>
+            <select name="donation_id" required class="form-input">
+                {% for d in donations %}
+                    <option value="{{ d.id }}">{{ d.tracking_id }} - {{ d.details or ('Grant: ₹' ~ d.amount) }} ({{ d.status }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label><i class="fa-solid fa-people-group"></i> People Benefited Count</label>
+            <input type="number" name="people_benefited" placeholder="e.g. 45" required class="form-input">
+        </div>
+
+        <div class="form-group">
+            <label><i class="fa-solid fa-camera"></i> Live Proof Photo Image</label>
+            <input type="file" name="proof_image" accept="image/*" required class="form-input">
+        </div>
+
+        <button type="submit" class="btn btn-glow-primary btn-block">
+            <i class="fa-solid fa-upload"></i> Upload Proof & Verify Impact
+        </button>
+    </form>
+</div>
+{% endblock %}

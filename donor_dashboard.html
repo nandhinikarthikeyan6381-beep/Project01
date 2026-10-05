@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Donor Dashboard</h3>
+            <p class="text-muted small mb-0">Track your active donations and impact history</p>
+        </div>
+        <a href="{{ url_for('donate') }}" class="btn btn-primary rounded-3 fw-bold">
+            <i class="fa-solid fa-plus me-1"></i> New Donation
+        </a>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
+                <small class="text-muted fw-semibold">Total Donations</small>
+                <h3 class="fw-bold text-primary mb-0 mt-1">₹12,500</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
+                <small class="text-muted fw-semibold">Active Trackings</small>
+                <h3 class="fw-bold text-warning mb-0 mt-1">2 Items</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
+                <small class="text-muted fw-semibold">Completed Deliveries</small>
+                <h3 class="fw-bold text-success mb-0 mt-1">8 Items</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Donations Table -->
+    <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+        <h5 class="fw-bold mb-3">Recent Activity</h5>
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Tracking ID</th>
+                        <th>Type</th>
+                        <th>Amount/Items</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-bold">TRK1001</td>
+                        <td>Money</td>
+                        <td>₹1,000</td>
+                        <td><span class="badge bg-warning text-dark">In Transit</span></td>
+                        <td><a href="{{ url_for('donation_detail') }}" class="btn btn-sm btn-outline-primary rounded-2">Track</a></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">TRK1002</td>
+                        <td>Resources</td>
+                        <td>Books & Stationeries</td>
+                        <td><span class="badge bg-success">Delivered</span></td>
+                        <td><a href="{{ url_for('donation_detail') }}" class="btn btn-sm btn-outline-primary rounded-2">View</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

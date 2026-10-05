@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center my-4">
+        <div class="col-md-5">
+            <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white">
+                <div class="text-center mb-4">
+                    <h3 class="fw-bold text-dark mb-1">Account Login</h3>
+                    <p class="text-muted small">Sign in to your NexusDonate dashboard</p>
+                </div>
+                
+                <form action="{{ url_for('login') }}" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label text-secondary fw-semibold small">
+                            <i class="fa-solid fa-envelope me-1"></i> Email Address
+                        </label>
+                        <input type="email" name="email" class="form-control form-control-lg rounded-3 fs-6" placeholder="user@example.com" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-secondary fw-semibold small">
+                            <i class="fa-solid fa-lock me-1"></i> Password
+                        </label>
+                        <input type="password" name="password" class="form-control form-control-lg rounded-3 fs-6" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fs-6 rounded-3 fw-bold mb-3">
+                        <i class="fa-solid fa-right-to-bracket me-2"></i> Login
+                    </button>
+                </form>
+
+                <div class="text-center mt-3 border-top pt-3">
+                    <span class="text-muted small">Don't have an account? </span>
+                    <a href="{{ url_for('register') }}" class="text-primary fw-bold text-decoration-none small">Register here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
