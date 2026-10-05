@@ -1,26 +1,23 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-import mysql.connector
 
+# File path resolution
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Absolute Path Resolution for Vercel
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
+# Exact path for Frontend/templates and Frontend/static based on VS Code layout
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'Frontend', 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'Frontend', 'static')
 
-# If templates are directly under root/templates, fallback handles it smoothly
+# Fallback in case backend/app.py structure is used in GitHub
 if not os.path.exists(TEMPLATE_DIR):
-    TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+    TEMPLATE_DIR = os.path.join(BASE_DIR, '..', 'Frontend', 'templates')
 if not os.path.exists(STATIC_DIR):
-    STATIC_DIR = os.path.join(BASE_DIR, 'static')
+    STATIC_DIR = os.path.join(BASE_DIR, '..', 'Frontend', 'static')
 
-app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 app.secret_key = 'ngo_donation_secret_key_2026'
 
-# Dynamic Data Storage (Fallback Data)
+# Dynamic Data Storage (Fallback / In-Memory Data)
 USERS = {
     "donor@example.com": {"password": "123", "name": "John Donor", "role": "donor"},
     "ngo@example.com": {"password": "123", "name": "Helping NGO", "role": "ngo"},
@@ -33,67 +30,42 @@ NGO_LIST = [
     {"name": "Future Education Trust", "desc": "Helping students achieve their dreams.", "cat": "Education", "location": "Madurai"}
 ]
 
-TRACKING_DATA = {
-    "TRK1001": {"status": "In Transit", "donor": "John Donor", "type": "Money (₹1000)", "ngo": "Helping Hands Foundation", "step": 3},
-    "TRK1002": {"status": "Delivered", "donor": "Priya", "type": "Books & Clothes", "ngo": "Future Education Trust", "step": 4}
-}
-
-# Safe Database Connection for Cloud/Vercel Serverless
+# Optional DB Bypass
 db = None
 cursor = None
-
 try:
-    db = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="your_password",
-        database="ngo_db"
-    )
+    import mysql.connector
+    db = mysql.connector.connect(host="localhost", user="root", password="your_password", database="ngo_db")
     cursor = db.cursor()
 except Exception as e:
-    print("Database Connection Error (Bypassed for Serverless):", e)
+    print("Database bypassed:", e)
 
 # Routes
 @app.route('/')
 def home():
-    try:
-        return render_template('index.html')
-    except Exception as e:
-        return f"Error rendering index.html: {str(e)}"
+    return render_template('index.html')
 
 @app.route('/ngos')
 def ngos():
-    try:
-        return render_template('ngos.html', ngos=NGO_LIST)
-    except Exception as e:
-        return f"Error loading ngos.html: {str(e)}"
+    return render_template('ngos.html', ngos=NGO_LIST)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        
         if email in USERS and USERS[email]['password'] == password:
             session['user'] = USERS[email]
             flash('Login Successful!', 'success')
             return redirect(url_for('home'))
         else:
             flash('Invalid Email or Password', 'danger')
-            
-    try:
-        return render_template('login.html')
-    except Exception as e:
-        return f"Error loading login.html: {str(e)}"
+    return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    try:
-        return render_template('register.html')
-    except Exception as e:
-        return f"Error loading register.html: {str(e)}"
+    return render_template('register.html')
 
-# Export for Vercel Serverless
 app = app
 
 if __name__ == '__main__':
